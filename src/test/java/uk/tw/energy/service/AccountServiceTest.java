@@ -8,12 +8,12 @@ import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class AccountServiceImplTest {
+public class AccountServiceTest {
 
     private static final String PRICE_PLAN_ID = "price-plan-id";
     private static final String SMART_METER_ID = "smart-meter-id";
 
-    private AccountServiceImpl accountService;
+    private AccountService accountService;
 
     @BeforeEach
     public void setUp() {
