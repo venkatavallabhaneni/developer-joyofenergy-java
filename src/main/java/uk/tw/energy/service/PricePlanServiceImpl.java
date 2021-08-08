@@ -9,6 +9,7 @@ import uk.tw.energy.dto.ElectricityReadings;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class PricePlanServiceImpl implements PricePlanService{
+public class PricePlanServiceImpl implements PricePlanService {
 
     private final List<PricePlan> pricePlans;
     private final MeterReadingService meterReadingService;
@@ -56,14 +57,14 @@ public class PricePlanServiceImpl implements PricePlanService{
     }
 
     private BigDecimal calculateTimeElapsed(List<ElectricityReading> electricityReadings) {
-        ElectricityReading first = electricityReadings.stream()
-                .min(Comparator.comparing(ElectricityReading::getTime))
-                .get();
-        ElectricityReading last = electricityReadings.stream()
-                .max(Comparator.comparing(ElectricityReading::getTime))
-                .get();
+        Optional<ElectricityReading> first = electricityReadings.stream()
+                .min(Comparator.comparing(ElectricityReading::getTime));
 
-        return BigDecimal.valueOf(Duration.between(first.getTime(), last.getTime()).getSeconds() / 3600.0);
+        Optional<ElectricityReading> last = electricityReadings.stream()
+                .max(Comparator.comparing(ElectricityReading::getTime));
+
+
+        return BigDecimal.valueOf(Duration.between(first.isPresent() ? first.get().getTime() : Instant.now(), last.isPresent() ? last.get().getTime() : Instant.now()).getSeconds() / 3600.0);
     }
 
 }
