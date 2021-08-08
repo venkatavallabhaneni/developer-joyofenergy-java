@@ -2,6 +2,7 @@ package uk.tw.energy.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import uk.tw.energy.domain.MeterReadings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,21 +12,21 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class MeterReadingServiceTest {
 
-    private MeterReadingService meterReadingService;
+    private MeterReadingServiceImpl meterReadingServiceImpl;
 
     @BeforeEach
     public void setUp() {
-        meterReadingService = new MeterReadingService(new HashMap<>());
+        meterReadingServiceImpl = new MeterReadingServiceImpl(new HashMap<>());
     }
 
     @Test
     public void givenMeterIdThatDoesNotExistShouldReturnNull() {
-        assertThat(meterReadingService.getReadings("unknown-id")).isEqualTo(Optional.empty());
+        assertThat(meterReadingServiceImpl.getReadings("unknown-id")).isEqualTo(Optional.empty());
     }
 
     @Test
     public void givenMeterReadingThatExistsShouldReturnMeterReadings() {
-        meterReadingService.storeReadings("random-id", new ArrayList<>());
-        assertThat(meterReadingService.getReadings("random-id")).isEqualTo(Optional.of(new ArrayList<>()));
+        MeterReadings meterReadings = meterReadingServiceImpl.storeReadings("random-id", new ArrayList<>());
+        assertThat(meterReadingServiceImpl.getReadings("random-id").get().getElectricityReadings()).isEqualTo(new ArrayList<>());
     }
 }
