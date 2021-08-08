@@ -1,5 +1,6 @@
 package uk.tw.energy.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
 import uk.tw.energy.dto.ElectricityReadings;
+import uk.tw.energy.service.MeterReadingService;
 import uk.tw.energy.service.MeterReadingServiceImpl;
 
 import java.util.List;
@@ -20,10 +22,11 @@ import java.util.Optional;
 @RequestMapping("/readings")
 public class MeterReadingController {
 
-    private final MeterReadingServiceImpl meterReadingServiceImpl;
+    private final MeterReadingService meterReadingService;
 
-    public MeterReadingController(MeterReadingServiceImpl meterReadingServiceImpl) {
-        this.meterReadingServiceImpl = meterReadingServiceImpl;
+    @Autowired
+    public MeterReadingController(MeterReadingService meterReadingService) {
+        this.meterReadingService = meterReadingService;
     }
 
     @PostMapping("/store")
@@ -31,7 +34,7 @@ public class MeterReadingController {
         if (!isMeterReadingsValid(meterReadings)) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-       MeterReadings meterReadingsResult = meterReadingServiceImpl.storeReadings(meterReadings.getSmartMeterId(), meterReadings.getElectricityReadings());
+       MeterReadings meterReadingsResult = meterReadingService.storeReadings(meterReadings.getSmartMeterId(), meterReadings.getElectricityReadings());
         return ResponseEntity.ok(meterReadingsResult);
     }
 
@@ -44,7 +47,7 @@ public class MeterReadingController {
 
     @GetMapping("/read/{smartMeterId}")
     public ResponseEntity<ElectricityReadings> readReadings(@PathVariable String smartMeterId) {
-        Optional<ElectricityReadings> readings = meterReadingServiceImpl.getReadings(smartMeterId);
+        Optional<ElectricityReadings> readings = meterReadingService.getReadings(smartMeterId);
         return readings.isPresent()
                 ? ResponseEntity.ok(readings.get())
                 : ResponseEntity.notFound().build();

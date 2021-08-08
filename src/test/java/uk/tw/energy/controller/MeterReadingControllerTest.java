@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import uk.tw.energy.builders.MeterReadingsBuilder;
 import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
+import uk.tw.energy.service.MeterReadingService;
 import uk.tw.energy.service.MeterReadingServiceImpl;
 
 import java.util.ArrayList;
@@ -19,12 +20,12 @@ public class MeterReadingControllerTest {
 
     private static final String SMART_METER_ID = "10101010";
     private MeterReadingController meterReadingController;
-    private MeterReadingServiceImpl meterReadingServiceImpl;
+    private MeterReadingService meterReadingService;
 
     @BeforeEach
     public void setUp() {
-        this.meterReadingServiceImpl = new MeterReadingServiceImpl(new HashMap<>());
-        this.meterReadingController = new MeterReadingController(meterReadingServiceImpl);
+        this.meterReadingService = new MeterReadingServiceImpl(new HashMap<>());
+        this.meterReadingController = new MeterReadingController(meterReadingService);
     }
 
     @Test
@@ -62,7 +63,7 @@ public class MeterReadingControllerTest {
         expectedElectricityReadings.addAll(meterReadings.getElectricityReadings());
         expectedElectricityReadings.addAll(otherMeterReadings.getElectricityReadings());
 
-        assertThat(meterReadingServiceImpl.getReadings(SMART_METER_ID).get().getElectricityReadings()).isEqualTo(expectedElectricityReadings);
+        assertThat(meterReadingService.getReadings(SMART_METER_ID).get().getElectricityReadings()).isEqualTo(expectedElectricityReadings);
     }
 
     @Test
@@ -78,7 +79,7 @@ public class MeterReadingControllerTest {
         meterReadingController.storeReadings(meterReadings);
         meterReadingController.storeReadings(otherMeterReadings);
 
-        assertThat(meterReadingServiceImpl.getReadings(SMART_METER_ID).get().getElectricityReadings()).isEqualTo(meterReadings.getElectricityReadings());
+        assertThat(meterReadingService.getReadings(SMART_METER_ID).get().getElectricityReadings()).isEqualTo(meterReadings.getElectricityReadings());
     }
 
     @Test
