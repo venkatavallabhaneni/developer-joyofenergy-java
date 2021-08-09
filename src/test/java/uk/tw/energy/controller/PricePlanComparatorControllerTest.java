@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.PricePlan;
+import uk.tw.energy.dto.CalculatedPricePlans;
+import uk.tw.energy.dto.PricePlanComparison;
 import uk.tw.energy.service.*;
 
 import java.math.BigDecimal;
@@ -57,10 +59,13 @@ public class PricePlanComparatorControllerTest {
         expectedPricePlanToCost.put(PRICE_PLAN_2_ID, BigDecimal.valueOf(10.0));
         expectedPricePlanToCost.put(PRICE_PLAN_3_ID, BigDecimal.valueOf(20.0));
 
-        Map<String, Object> expected = new HashMap<>();
-        expected.put(PricePlanComparatorController.PRICE_PLAN_ID_KEY, PRICE_PLAN_1_ID);
-        expected.put(PricePlanComparatorController.PRICE_PLAN_COMPARISONS_KEY, expectedPricePlanToCost);
-        assertThat(controller.calculatedCostForEachPricePlan(SMART_METER_ID).getBody()).isEqualTo(expected);
+
+        List<PricePlanComparison> pricePlanComparisons = new ArrayList<>();
+        expectedPricePlanToCost.entrySet().forEach(aEntry -> pricePlanComparisons.add(new PricePlanComparison(aEntry.getKey(), aEntry.getValue())));
+
+        CalculatedPricePlans calculatedPricePlans = new CalculatedPricePlans(PRICE_PLAN_1_ID,pricePlanComparisons);
+
+        assertThat(controller.calculatedCostForEachPricePlan(SMART_METER_ID).getBody()).isEqualTo(calculatedPricePlans);
     }
 
     @Test
