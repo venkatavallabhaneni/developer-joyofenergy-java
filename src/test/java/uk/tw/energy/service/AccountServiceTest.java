@@ -24,7 +24,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void givenTheSmartMeterIdReturnsThePricePlanId() throws Exception {
+    public void testGivenTheSmartMeterIdReturnsThePricePlanId() throws Exception {
         assertThat(accountService.getPricePlanIdForSmartMeterId(SMART_METER_ID)).isEqualTo(PRICE_PLAN_ID);
     }
 }

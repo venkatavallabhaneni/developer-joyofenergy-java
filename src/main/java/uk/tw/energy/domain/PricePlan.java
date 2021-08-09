@@ -33,7 +33,7 @@ public class PricePlan {
 
     public BigDecimal getPrice(LocalDateTime dateTime) {
         return peakTimeMultipliers.stream()
-                .filter(multiplier -> multiplier.dayOfWeek.equals(dateTime.getDayOfWeek()))
+                .filter(multiplier -> multiplier.dayOfWeek==dateTime.getDayOfWeek())
                 .findFirst()
                 .map(multiplier -> unitRate.multiply(multiplier.multiplier))
                 .orElse(unitRate);

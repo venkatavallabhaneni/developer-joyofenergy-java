@@ -9,7 +9,7 @@ public class MeterReadings {
 
     public MeterReadings() { }
 
-    public MeterReadings(String smartMeterId, List<ElectricityReading> electricityReadings) {
+    public MeterReadings(final String smartMeterId, final List<ElectricityReading> electricityReadings) {
         this.smartMeterId = smartMeterId;
         this.electricityReadings = electricityReadings;
     }

@@ -25,7 +25,7 @@ public class EndpointTest {
     private ObjectMapper mapper;
 
     @Test
-    public void shouldStoreReadings() throws JsonProcessingException {
+    public void testShouldStoreReadings() throws JsonProcessingException {
         MeterReadings meterReadings = new MeterReadingsBuilder().generateElectricityReadings().build();
         HttpEntity<String> entity = getStringHttpEntity(meterReadings);
 
@@ -35,7 +35,7 @@ public class EndpointTest {
     }
 
     @Test
-    public void givenMeterIdShouldReturnAMeterReadingAssociatedWithMeterId() throws JsonProcessingException {
+    public void testGivenMeterIdShouldReturnAMeterReadingAssociatedWithMeterId() throws JsonProcessingException {
         String smartMeterId = "bob";
         populateMeterReadingsForMeter(smartMeterId);
 
@@ -45,7 +45,7 @@ public class EndpointTest {
     }
 
     @Test
-    public void shouldCalculateAllPrices() throws JsonProcessingException {
+    public void testShouldCalculateAllPrices() throws JsonProcessingException {
         String smartMeterId = "bob";
         populateMeterReadingsForMeter(smartMeterId);
 
@@ -55,7 +55,7 @@ public class EndpointTest {
     }
 
     @Test
-    public void givenMeterIdAndLimitShouldReturnRecommendedCheapestPricePlans() throws JsonProcessingException {
+    public void testGivenMeterIdAndLimitShouldReturnRecommendedCheapestPricePlans() throws JsonProcessingException {
         String smartMeterId = "bob";
         populateMeterReadingsForMeter(smartMeterId);
 

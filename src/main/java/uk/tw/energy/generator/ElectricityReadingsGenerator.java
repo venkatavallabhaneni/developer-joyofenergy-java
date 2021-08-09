@@ -12,14 +12,17 @@ import java.util.Random;
 
 public class ElectricityReadingsGenerator {
 
-    private Random readingRandomiser = new Random();
+    private final static Integer SCALE = 4;
+    private final static Long SECONDS_10 = 10L;
+    private final static Random readingRandomiser = new Random();
+
     public List<ElectricityReading> generate(int number) {
         List<ElectricityReading> readings = new ArrayList<>();
         Instant now = Instant.now();
         for (int i = 0; i < number; i++) {
             double positiveRandomValue = Math.abs(readingRandomiser.nextGaussian());
-            BigDecimal randomReading = BigDecimal.valueOf(positiveRandomValue).setScale(4, RoundingMode.CEILING);
-            ElectricityReading electricityReading = new ElectricityReading(now.minusSeconds(i * 10), randomReading);
+            BigDecimal randomReading = BigDecimal.valueOf(positiveRandomValue).setScale(SCALE, RoundingMode.CEILING);
+            ElectricityReading electricityReading = new ElectricityReading(now.minusSeconds(i * SECONDS_10), randomReading);
             readings.add(electricityReading);
         }
 
