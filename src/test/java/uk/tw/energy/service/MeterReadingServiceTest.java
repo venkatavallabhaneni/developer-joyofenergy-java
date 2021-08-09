@@ -27,6 +27,6 @@ public class MeterReadingServiceTest {
     @Test
     public void givenMeterReadingThatExistsShouldReturnMeterReadings() {
         MeterReadings meterReadings = meterReadingServiceImpl.storeReadings("random-id", new ArrayList<>());
-        assertThat(meterReadingServiceImpl.getReadings("random-id").get().getElectricityReadings()).isEqualTo(new ArrayList<>());
+        assertThat(meterReadingServiceImpl.getReadings("random-id").get().getElectricityReadingList()).isEqualTo(new ArrayList<>());
     }
 }

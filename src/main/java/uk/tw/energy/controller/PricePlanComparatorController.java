@@ -3,9 +3,7 @@ package uk.tw.energy.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uk.tw.energy.service.AccountService;
-import uk.tw.energy.service.AccountServiceImpl;
 import uk.tw.energy.service.PricePlanService;
-import uk.tw.energy.service.PricePlanServiceImpl;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -14,8 +12,8 @@ import java.util.*;
 @RequestMapping("/price-plans")
 public class PricePlanComparatorController {
 
-    public final static String PRICE_PLAN_ID_KEY = "pricePlanId";
-    public final static String PRICE_PLAN_COMPARISONS_KEY = "pricePlanComparisons";
+    public static final String PRICE_PLAN_ID_KEY = "pricePlanId";
+    public static final String PRICE_PLAN_COMPARISONS_KEY = "pricePlanComparisons";
     private final PricePlanService pricePlanService;
     private final AccountService accountService;
 

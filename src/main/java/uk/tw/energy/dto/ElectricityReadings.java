@@ -6,13 +6,13 @@ import java.util.List;
 
 public class ElectricityReadings {
 
-    private List<ElectricityReading> electricityReadings;
+    private List<ElectricityReading> electricityReadingList;
 
-    public ElectricityReadings(List<ElectricityReading> electricityReadings) {
-        this.electricityReadings = electricityReadings;
+    public ElectricityReadings(List<ElectricityReading> electricityReadingList) {
+        this.electricityReadingList = electricityReadingList;
     }
 
-    public List<ElectricityReading> getElectricityReadings() {
-        return electricityReadings;
+    public List<ElectricityReading> getElectricityReadingList() {
+        return electricityReadingList;
     }
 }

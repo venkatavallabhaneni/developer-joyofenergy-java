@@ -1,13 +1,14 @@
 package uk.tw.energy.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
 import uk.tw.energy.dto.ElectricityReadings;
 
-import java.sql.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class MeterReadingServiceImpl implements MeterReadingService {

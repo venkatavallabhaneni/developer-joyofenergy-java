@@ -63,7 +63,7 @@ public class MeterReadingControllerTest {
         expectedElectricityReadings.addAll(meterReadings.getElectricityReadings());
         expectedElectricityReadings.addAll(otherMeterReadings.getElectricityReadings());
 
-        assertThat(meterReadingService.getReadings(SMART_METER_ID).get().getElectricityReadings()).isEqualTo(expectedElectricityReadings);
+        assertThat(meterReadingService.getReadings(SMART_METER_ID).get().getElectricityReadingList()).isEqualTo(expectedElectricityReadings);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class MeterReadingControllerTest {
         meterReadingController.storeReadings(meterReadings);
         meterReadingController.storeReadings(otherMeterReadings);
 
-        assertThat(meterReadingService.getReadings(SMART_METER_ID).get().getElectricityReadings()).isEqualTo(meterReadings.getElectricityReadings());
+        assertThat(meterReadingService.getReadings(SMART_METER_ID).get().getElectricityReadingList()).isEqualTo(meterReadings.getElectricityReadings());
     }
 
     @Test
